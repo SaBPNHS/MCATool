@@ -1,0 +1,91 @@
+﻿@using Sfw.Sabp.Mca.Infrastructure.Web.HtmlExtensions
+@model Sfw.Sabp.Mca.Web.ViewModels.QuestionViewModel
+
+
+
+<div id="questionFormDiv">
+    @using (Html.BeginForm(MVC.Question.Index(), FormMethod.Post, new { @class = "form-vertical", @id = "questionForm" }))
+    {
+        <div class="form-group question">
+            @Html.Raw(@Model.Question)
+        </div>
+
+        @Html.HiddenFor(m => m.StageDescription)
+        @Html.HiddenFor(m => m.DisplayGuidance)
+        @Html.HiddenFor(m => m.Guidance)
+        @Html.HiddenFor(m => m.Question)
+        @Html.HiddenFor(m => m.AssessmentId)
+        @Html.HiddenFor(m => m.DisplayFurtherInformationQuestion)
+        @Html.HiddenFor(m => m.FurtherInformationQuestion)
+        @Html.HiddenFor(m => m.PatientId)
+        @Html.HiddenFor(m => m.StageDescriptionStyle)
+        @Html.HiddenFor(m => m.DisableBackButton)
+        @Html.HiddenCollectionOf(Model, m => m.Options)
+        @Html.HiddenFor(m => m.Stage1DecisionMade)
+        @Html.HiddenFor(m => m.DisplayStage1DecisionMade)
+
+        @Html.AntiForgeryToken()
+
+        if (Model.DisplayOptions)
+        {
+            <div class="form-group">
+                @foreach (var option in Model.Options)
+                {
+                    if (option.Selected)
+                    {
+                        if (Model.ReadOnly)
+                        {
+                            <button type="submit" name="chosenOption" class="btn btn-success btn-selected" value="@option.QuestionOptionId" disabled="disabled">@option.Description</button>
+                        }
+                        else
+                        {
+                            <button type="submit" name="chosenOption" class="btn btn-success btn-selected btn-continue-submit" value="@option.QuestionOptionId" post-url="@Url.Action(MVC.Question.ActionNames.Index, MVC.Question.Name)">@option.Description</button>
+                        }
+                    }
+                    else
+                    {
+                        if (Model.ReadOnly)
+                        {
+                            <button type="submit" name="chosenOption" class="btn" value="@option.QuestionOptionId" disabled="disabled">@option.Description</button>
+                        }
+                        else
+                        {
+                            <button type="submit" name="chosenOption" class="btn btn-continue-submit" value="@option.QuestionOptionId" post-url="@Url.Action(MVC.Question.ActionNames.Index, MVC.Question.Name)">@option.Description</button>
+                        }
+
+                    }
+                }
+            </div>
+            <div class="form-group">
+                @Html.ValidationMessageFor(m => m.ChosenOption)
+            </div>
+        }
+
+        @Html.HiddenFor(m => m.ChosenOption)
+
+        <div class="form-group">
+
+            @if (Model.DisplayFurtherInformationQuestion)
+            {
+                <div class="furtherinformation"><label for="FurtherInformationAnswer">@Model.FurtherInformationQuestion</label>@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)</div>
+
+                if (Model.ReadOnly)
+                {
+                    @Html.TextAreaFor(m => m.FurtherInformationAnswer, new { @class = "form-control", @rows = "10", @disabled = "disabled" })
+                    @Html.HiddenFor(m => m.FurtherInformationAnswer)
+                }
+                else
+                {
+                    @Html.TextAreaFor(m => m.FurtherInformationAnswer, new { @class = "form-control", @rows = "10" })
+                }
+            }
+            @Html.ValidationMessageFor(m => m.FurtherInformationAnswer)
+
+        </div>
+
+        <button type="submit" name="continueButton" class="btn btn-default btn-continue-submit" post-url="@Url.Action(MVC.Question.ActionNames.Index, MVC.Question.Name)" value="true">Continue</button>
+    }
+    
+    @Scripts.Render("~/bundles/question")
+
+</div>

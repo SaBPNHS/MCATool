@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2AC6474B-D128-441D-903E-3FC534C74D09}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sfw.Sabp.Mca.Service.Tests</RootNamespace>
+    <AssemblyName>Sfw.Sabp.Mca.Service.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DevCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Integration|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Integration\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FakeItEasy">
+      <HintPath>..\packages\FakeItEasy.1.25.2\lib\net40\FakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.3.3.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="CommandHandlers\AddAuditLogCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\AddUpdateDisclaimerCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\RemoveAnswerCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\AddUpdatePatientCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\AddQuestionAnswerCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\CommandDispatcherTests.cs" />
+    <Compile Include="CommandHandlers\UpdateQuestionAnswerCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentCompleteCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentReadOnlyCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentStatusCommandHandlerTests.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentQuestionsCommandHandlerTests.cs" />
+    <Compile Include="Helpers\AssessmentHelperTests.cs" />
+    <Compile Include="Helpers\PatientHelperTests.cs" />
+    <Compile Include="Helpers\QuestionAnswerHelpersTests.cs" />
+    <Compile Include="Helpers\RolesHelperTests.cs" />
+    <Compile Include="Helpers\WorkflowStepHelperTests.cs" />
+    <Compile Include="Queries\AssessmentByClinicSystemIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\QuestionAnswerByIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\RoleListQueryHandlerTests.cs" />
+    <Compile Include="Queries\WorkflowVersionByIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\AssessmentQuestionAnswerByAssessmentAndQuestionIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\AssessmentQuestionAnswersByWorkflowStageIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\AssessmentQuestionsAnswersByAssessmentIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\DisclaimerByUserQueryHandlerTests.cs" />
+    <Compile Include="Queries\WorkflowStageByIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\PatientByIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\PatientByClinicalIdQueryHandlerTests.cs" />
+    <Compile Include="Queries\AssessmentByIdQueryHandlerTests.cs" />
+    <Compile Include="Helpers\TestDbSet.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CommandHandlers\AddAssessmentCommandHandlerTests.cs" />
+    <Compile Include="Queries\CurrentWorkflowVersionQueryHandlerTests.cs" />
+    <Compile Include="Queries\WorkflowStepByVersionCurrentQuestionAndQuestionOptionQueryHandlerTests.cs" />
+    <Compile Include="Queries\QueryDispatcherTests.cs" />
+    <Compile Include="Workflow\WorkflowHandlerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.Core\Sfw.Sabp.Mca.Core.csproj">
+      <Project>{1183f3fd-a4da-4434-840d-df0aa5c0d6a5}</Project>
+      <Name>Sfw.Sabp.Mca.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.DataAccess.Ef\Sfw.Sabp.Mca.DataAccess.Ef.csproj">
+      <Project>{c4135284-2cc1-47a4-bca7-7ef06fe916a1}</Project>
+      <Name>Sfw.Sabp.Mca.DataAccess.Ef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.DataAccess\Sfw.Sabp.Mca.DataAccess.csproj">
+      <Project>{4340e564-2986-4335-bd6c-ba384fe08fff}</Project>
+      <Name>Sfw.Sabp.Mca.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.Infrastructure\Sfw.Sabp.Mca.Infrastructure.csproj">
+      <Project>{29b4f8ef-17ee-4aba-be04-de9a522ce180}</Project>
+      <Name>Sfw.Sabp.Mca.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.Model\Sfw.Sabp.Mca.Model.csproj">
+      <Project>{fcaee498-b43e-4e26-8d76-62df98493506}</Project>
+      <Name>Sfw.Sabp.Mca.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.Service\Sfw.Sabp.Mca.Service.csproj">
+      <Project>{097c93b7-799f-4632-8a2b-1eef5e1edefd}</Project>
+      <Name>Sfw.Sabp.Mca.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

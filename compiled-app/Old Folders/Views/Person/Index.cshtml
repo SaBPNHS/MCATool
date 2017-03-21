@@ -1,0 +1,107 @@
+﻿@using Sfw.Sabp.Mca.Web.ViewModels
+@model PatientSearchViewModel
+@using System.Linq
+@using GridMvc.Html;
+
+
+@{
+    ViewBag.Title = "Search Person";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Search person</h2>
+<br />
+<div class="container">
+    <div class="alert alert-info row" role="alert">        
+        
+        <span>@Html.Partial(MVC.Shared.Views._InformationLogo)</span>
+        <p>
+            <span>
+                The Mental Capacity Act specifies that capacity is decision specific. A person may have capacity to make some decisions and not others. The Act says that you should assume capacity unless there are indications that the person may not have capacity. If you are unsure, then you must do a capacity assessment and this assessment tool will help you decide whether the person has capacity to make the specified decision.
+            </span>
+        </p>
+        <p>
+            This application will help you, as the decision maker or the person advising the decision maker, to assess whether the person has the capacity to make the identified decision, using the principles of the Mental Capacity Act.
+            The app takes you through the principles of the Act and allows you to record accurately all aspects of the capacity assessment process, giving you prompts to assist you in the process.
+        </p>
+    </div>
+</div>
+@using (Html.BeginForm(MVC.Person.Index(), FormMethod.Post, new { @class = "form form-inline" }))
+{
+    @Html.HiddenFor(m => m.ClinicalIdDescription)
+    
+    <div class="form-group">
+        @Html.LabelFor(model => model.ClinicalSystemId)
+    </div>
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.ClinicalSystemId, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        <input name="SearchButton" type="submit" value="Search" class="btn btn-default" />
+    </div>
+
+    <div>
+        @Html.ValidationMessageFor(m => m.ClinicalSystemId)
+    </div>
+
+    if (Model.HasResult())
+    {
+        @Html.Grid(Model.Items.OrderBy(p => p.ClinicalSystemId)).Columns(columns =>
+        {
+            columns.Add(person => person.ClinicalSystemId)
+                .Encoded(false)
+                .Sanitized(false)
+                .Titled(Model.ClinicalIdDescription)
+                .RenderValueAs(person => Html.ActionLink(person.ClinicalSystemId, MVC.Assessment.ActionNames.Index, MVC.Assessment.Name, new { id = person.PatientId }, null));
+
+            columns.Add(person => person.NhsNumber)
+                .Encoded(false)
+                .Sanitized(false)
+                .Titled("NHS Number");
+
+            columns.Add(person => person.FirstName)
+                .Encoded(false)
+                .Sanitized(false)
+                .Titled("First Name");
+
+            columns.Add(person => person.LastName)
+                .Encoded(false)
+                .Sanitized(false)
+                .Titled("Last Name");
+
+            columns.Add(person => person.DateOfBirthViewModel)
+             .Encoded(false)
+             .Sanitized(false)
+             .Titled("Date of Birth")
+            .RenderValueAs(person => string.Format("{0:dd/MM/yyyy}", person.DateOfBirthViewModel.Date));
+
+            columns.Add()
+            .Encoded(false)
+            .Sanitized(false)
+            .Titled("")
+            .RenderValueAs(person => CustomEditRendering(Model.CanEdit, person.PatientId));
+            
+        }).Sortable(false)
+    }
+
+    if (Model.DisplayEmptySearchResultsMessage())
+    {
+        <div class="results"><em>No results</em></div>
+    }
+    <br />
+
+    if (Model.CanCreate())
+    {
+        @Html.ActionLink("Create Person", MVC.Person.Create(), new { @class = "btn btn-default" })
+    }
+}
+
+
+@helper CustomEditRendering(bool canEdit, Guid patientId)
+{
+    if (canEdit)
+    {
+        @Html.ActionLink("Edit", MVC.Person.Edit(patientId))
+    }
+}

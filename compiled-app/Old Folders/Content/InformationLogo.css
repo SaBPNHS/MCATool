@@ -1,0 +1,11 @@
+﻿#infologo {
+        float: left;
+        margin-right: 5px;  
+    }
+
+    .alert {
+        padding: 0 15px 15px 15px;
+    }
+    .alert >span>  p {
+        margin-top:10px;
+    }

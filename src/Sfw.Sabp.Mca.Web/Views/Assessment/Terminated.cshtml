@@ -1,0 +1,52 @@
+﻿@model Sfw.Sabp.Mca.Web.ViewModels.TerminatedViewModel
+@{
+    ViewBag.Title = "Terminated";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm(MVC.Assessment.AddCompletionDetails(), FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.AssessmentId, new { @id = "completionAssessmentId" })
+
+        <div class="form-horizontal">
+            <hr/>
+
+        @if (Model.TerminatedReasonRequired)
+        {
+            <h2>Terminating the assessment</h2>
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.TerminatedAssessmentReason, new {@class = "control-label"})@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.TerminatedAssessmentReason, new { @class = "form-control", @maxlength = "150" })
+                    @Html.ValidationMessageFor(model => model.TerminatedAssessmentReason)
+                </div>
+            </div>
+        }
+        else
+        {
+            <h2>Completing the assessment</h2>
+        }
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.DateAssessmentEnded, new { @class = "control-label" })
+                </div>
+                <div class="col-md-8">
+                    @Html.TextBoxFor(model => model.DateAssessmentEnded, "{0:dd/MM/yyyy}", new { @class = "form-control past-date" })
+                    @Html.ValidationMessageFor(model => model.DateAssessmentEnded)
+                </div>
+            </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-default btn-submit">Complete</button>
+        </div>
+
+    </div>
+}
+

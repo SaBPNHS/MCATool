@@ -1,0 +1,36 @@
+﻿@model Sfw.Sabp.Mca.Web.ViewModels.ClinicalSystemViewModel
+
+@{
+    ViewBag.Title = "Break Page";
+}
+
+<div class="container">
+    <div class="alert alert-info row" role="alert">
+        <div class="tutorial">
+            <span>@Html.Partial(MVC.Shared.Views._InformationLogo)</span>
+
+            <strong>Pause Assessment</strong>
+
+        </div>
+        <p>
+            Because of a response you have made it is not possible to complete the assessment now. This may be because the person you are assessing has a temporary impairment, because the environment is not suitable, there is an issue around medication, or for another reason.
+        </p>
+        <p>
+            When you are ready to resume the assessment you should:
+        </p>
+        <ul>
+            <li>
+                log back into the tool
+            </li>
+            @{
+    <li>
+        on the ‘Search person’ page, enter the person’s @Model.ClinicalSystemIdText and click ‘Search’ – this will show you the person’s name, date of birth and @Model.ClinicalSystemIdText
+    </li>
+    <li>
+        click on the @Model.ClinicalSystemIdText link, then click the ‘Resume’ link alongside the appropriate assessment. You will then be taken back to the section you had been in
+    </li>
+}
+        </ul>
+    </div>
+    </div>
+@Html.ActionLink("Back To Home", MVC.Person.Index(), new { @class = "btn btn-default" })

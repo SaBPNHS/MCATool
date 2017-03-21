@@ -1,0 +1,27 @@
+﻿@model HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1> Error.</h1>
+<h2> An error occurred while processing your request.</h2>
+
+<p>@Html.ActionLink("Back to Home", MVC.Person.Index(), new { @class = "btn btn-default" })</p>
+
+@if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+{
+    <hr />
+    <div>
+        <p>
+            <b>Exception message:</b> @Model.Exception.Message<br />
+            <b>Controller:</b> @Model.ControllerName<br />
+            <b>Action:</b> @Model.ActionName
+        </p>
+        <div style="overflow:scroll">
+            <pre>
+                @Model.Exception.StackTrace
+            </pre>
+        </div>
+    </div>
+}

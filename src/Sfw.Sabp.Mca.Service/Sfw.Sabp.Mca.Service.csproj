@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{097C93B7-799F-4632-8A2B-1EEF5E1EDEFD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sfw.Sabp.Mca.Service</RootNamespace>
+    <AssemblyName>Sfw.Sabp.Mca.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DevCI|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DevCI\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Integration|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Integration\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandHandlers\AddAuditLogCommandHandler.cs" />
+    <Compile Include="CommandHandlers\AddUpdateDisclaimerCommandHandler.cs" />
+    <Compile Include="CommandHandlers\RemoveAnswerCommandHandler.cs" />
+    <Compile Include="CommandHandlers\AddUpdatePatientCommandHandler.cs" />
+    <Compile Include="CommandHandlers\AddQuestionAnswerCommandHandler.cs" />
+    <Compile Include="CommandHandlers\CommandDispatcher.cs" />
+    <Compile Include="CommandHandlers\AddAssessmentCommandHandler.cs" />
+    <Compile Include="CommandHandlers\ICommandDispatcher.cs" />
+    <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="CommandHandlers\UpdateQuestionAnswerCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentCompleteCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentReadOnlyCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentStatusCommandHandler.cs" />
+    <Compile Include="CommandHandlers\UpdateAssessmentQuestionsCommandHandler.cs" />
+    <Compile Include="Commands\AddAuditLogCommand.cs" />
+    <Compile Include="Commands\AddUpdateDisclaimerCommand.cs" />
+    <Compile Include="Commands\UpdateQuestionAnswerCommand.cs" />
+    <Compile Include="Commands\UpdateAssessmentCompleteCommand.cs" />
+    <Compile Include="Commands\RemoveAnswerCommand.cs" />
+    <Compile Include="Commands\AddUpdatePatientCommand.cs" />
+    <Compile Include="Commands\AddQuestionAnswerCommand.cs" />
+    <Compile Include="Commands\UpdateAssessmentCommand.cs" />
+    <Compile Include="Commands\UpdateAssessmentReadOnlyCommand.cs" />
+    <Compile Include="Commands\UpdateAssessmentStatusCommand.cs" />
+    <Compile Include="Commands\UpdateAssessmentQuestionsCommand.cs" />
+    <Compile Include="Helpers\AssessmentHelper.cs" />
+    <Compile Include="Helpers\IAssessmentHelper.cs" />
+    <Compile Include="Helpers\IPatientHelper.cs" />
+    <Compile Include="Helpers\IQuestionAnswerHelper.cs" />
+    <Compile Include="Helpers\IRoleHelper.cs" />
+    <Compile Include="Helpers\IWorkflowStepHelper.cs" />
+    <Compile Include="Helpers\PatientHelper.cs" />
+    <Compile Include="Helpers\QuestionAnswerHelper.cs" />
+    <Compile Include="Helpers\RoleHelper.cs" />
+    <Compile Include="Helpers\WorkflowStepHelper.cs" />
+    <Compile Include="Queries\QuestionAnswerByIdQuery.cs" />
+    <Compile Include="Queries\RoleListQuery.cs" />
+    <Compile Include="Queries\WorkflowVersionByIdQuery.cs" />
+    <Compile Include="Queries\DisclaimerByUserQuery.cs" />
+    <Compile Include="Queries\QuestionAnswerByAssessmentAndQuestionIdQuery.cs" />
+    <Compile Include="Queries\QuestionAnswersByAssessmentIdQuery.cs" />
+    <Compile Include="Queries\GenderListQuery.cs" />
+    <Compile Include="Queries\PatientByIdQuery.cs" />
+    <Compile Include="Queries\PatientByClinicalIdQuery.cs" />
+    <Compile Include="Queries\AssessmentByIdQuery.cs" />
+    <Compile Include="Queries\AssessmentsByPatientIdQuery.cs" />
+    <Compile Include="Queries\CurrentWorkflowQuery.cs" />
+    <Compile Include="Queries\PatientByNHSNumberQuery.cs" />
+    <Compile Include="Queries\QuestionAnswersByWorkflowStageIdQuery.cs" />
+    <Compile Include="Queries\WorkflowStageByIdQuery.cs" />
+    <Compile Include="Queries\WorkflowStepByVersionCurrentQuestionAndQuestionOptionQuery.cs" />
+    <Compile Include="QueryHandlers\QuestionAnswerByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\RoleListQueryHandler.cs" />
+    <Compile Include="QueryHandlers\WorkflowVersionByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\DisclaimerByUserQueryHandler.cs" />
+    <Compile Include="QueryHandlers\QuestionAnswerByAssessmentAndQuestionIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\QuestionAnswersByAssessmentIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GenderListQueryHandler.cs" />
+    <Compile Include="QueryHandlers\PatientByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\PatientByClinicalIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\AssessmentByIdQueryHandler.cs" />
+    <Compile Include="Commands\AddAssessmentCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryHandlers\AssessmentsByPatientIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\CurrentWorkflowVersionQueryHandler.cs" />
+    <Compile Include="QueryHandlers\IQueryDispatcher.cs" />
+    <Compile Include="QueryHandlers\IQueryHandler.cs" />
+    <Compile Include="QueryHandlers\PatientByNHSNumberQueryHandler.cs" />
+    <Compile Include="QueryHandlers\QueryDispatcher.cs" />
+    <Compile Include="QueryHandlers\QuestionAnswersByWorkflowStageIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\WorkflowStageByIdQueryHandler.cs" />
+    <Compile Include="QueryHandlers\WorkflowStepByVersionAndQuestionOptionQueryHandler.cs" />
+    <Compile Include="Workflow\InvalidAssessmentQuestionException.cs" />
+    <Compile Include="Workflow\IWorkflowHandler.cs" />
+    <Compile Include="Workflow\WorkFlowHandler.cs" />
+    <Compile Include="Workflow\WorkflowInvalidStatusException.cs" />
+    <Compile Include="Workflow\WorkflowStageInitialQuestionNotFoundException.cs" />
+    <Compile Include="Workflow\WorkflowStepNotFoundException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CommandHandlers\Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.Core\Sfw.Sabp.Mca.Core.csproj">
+      <Project>{1183f3fd-a4da-4434-840d-df0aa5c0d6a5}</Project>
+      <Name>Sfw.Sabp.Mca.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.DataAccess.Ef\Sfw.Sabp.Mca.DataAccess.Ef.csproj">
+      <Project>{c4135284-2cc1-47a4-bca7-7ef06fe916a1}</Project>
+      <Name>Sfw.Sabp.Mca.DataAccess.Ef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.DataAccess\Sfw.Sabp.Mca.DataAccess.csproj">
+      <Project>{4340e564-2986-4335-bd6c-ba384fe08fff}</Project>
+      <Name>Sfw.Sabp.Mca.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.Infrastructure\Sfw.Sabp.Mca.Infrastructure.csproj">
+      <Project>{29b4f8ef-17ee-4aba-be04-de9a522ce180}</Project>
+      <Name>Sfw.Sabp.Mca.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sfw.Sabp.Mca.Model\Sfw.Sabp.Mca.Model.csproj">
+      <Project>{fcaee498-b43e-4e26-8d76-62df98493506}</Project>
+      <Name>Sfw.Sabp.Mca.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,61 @@
+﻿@using Sfw.Sabp.Mca.Infrastructure.Web.HtmlExtensions
+@model Sfw.Sabp.Mca.Web.ViewModels.QuestionViewModel
+
+@{
+    ViewBag.Title = Model.StageDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/InformationLogo.css")
+
+
+    <div class="form-group">
+        <div class="alert alert-@Model.StageDescriptionStyle" role="alert">
+            <h2>@Model.StageDescription</h2>
+        </div>
+    </div>
+    <div class="form-group decision">
+        @if (@Model.DisplayStage1DecisionMade)
+        {
+            <p> Decision to be made: @Model.Stage1DecisionMade </p>
+        }
+    </div>
+    <div class="navigation-container">
+        <div>
+            @using (Html.BeginForm(MVC.Question.Back(), FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.AssessmentId, new { @id = "backAssessmentId" })
+                @Html.AntiForgeryToken()
+
+                if (!Model.DisableBackButton)
+                {
+                    <button type="submit" name="Back" id="Back" class="btn btn-default btn-submit">Back</button>
+                }
+            }
+        </div>
+        <div>
+            @using (Html.BeginForm(MVC.Question.Reset(), FormMethod.Post))
+            {
+                @Html.HiddenFor(m => m.AssessmentId, new { @id = "resetAssessmentId" })
+                @Html.AntiForgeryToken()
+
+                if (!Model.DisableResetButton)
+                {
+                    <button type="submit" name="Reset" id="Reset" class="btn btn-default" data-confirmprompt="Are you sure you want to reset the section?">Reset</button>
+                }
+            }
+        </div>
+    </div>
+    <br />
+
+    @if (Model.DisplayGuidance)
+    {
+        <div class="alert alert-info" role="alert">
+            <span>
+                @Html.Partial(MVC.Shared.Views._InformationLogo)
+                @Html.Raw(@Model.Guidance)
+            </span>
+        </div>
+    }
+
+    @Html.Partial(MVC.Question.Views._OptionsPartial)
+

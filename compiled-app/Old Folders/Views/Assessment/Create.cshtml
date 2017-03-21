@@ -1,0 +1,27 @@
+﻿@model Sfw.Sabp.Mca.Web.ViewModels.AssessmentViewModel
+
+@{
+    ViewBag.Title = "New assessment";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(MVC.Assessment.Create(), FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        @Html.Partial(MVC.Assessment.Views._DetailsPartial, Model)
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-default btn-submit">Create And Continue</button>
+                @Html.ActionLink("Cancel", MVC.Person.Index(), new { @class = "btn btn-default" })
+            </div>
+
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/assessment")

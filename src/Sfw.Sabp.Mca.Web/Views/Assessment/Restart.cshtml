@@ -1,0 +1,75 @@
+﻿@model Sfw.Sabp.Mca.Web.ViewModels.AssessmentViewModel
+
+@{
+    ViewBag.Title = "Restart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Decision to be made: @Model.Stage1DecisionToBeMade</h2>
+<h3>Does this decision still need a mental capacity assessment?</h3>
+<div class="navigation-container">
+
+    <div>
+        @using (Html.BeginForm(MVC.Assessment.RestartAssessment(), FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.AssessmentId, new { @id = "restartYesAssessmentId" })
+            @Html.HiddenFor(m => m.Stage1DecisionToBeMade)
+            @Html.HiddenFor(m => m.Status.Description)
+            @Html.HiddenFor(m => m.Status.StatusId)
+            
+            <button type="submit" name="yes" id="yesButton" class="btn">Yes</button>
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm(MVC.Assessment.RestartNo(), FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.AssessmentId, new { @id = "restartNoAssessmentId" })
+            @Html.HiddenFor(m => m.Patient.PatientId)
+            <button type="submit" name="no" id="noButton" class="btn" data-confirmprompt="Are you sure this decision is still not valid?">No</button>
+        }
+    </div>
+</div>
+
+<br />
+
+@if (Model.YesClicked)
+{
+    <div>
+        <div>
+            <p>
+                You may now resume the assessment – click one of the following options:
+            </p>
+            <br/>
+            @using (Html.BeginForm(MVC.Assessment.RestartStartAssessment(), FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.AssessmentId, new { @id = "restartStartAssessmentId" })
+                <button type="submit" name="returnBeginning" id="returnBeginning" class="btn btn-default btn-submit">Return To Beginning</button>
+                <p>This takes you back to the start of the assessment and enables you to review all of your previous responses.</p>
+            }
+        </div>
+        <div>
+            @using (Html.BeginForm(MVC.Assessment.RestartStage(), FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.AssessmentId, new { @id = "restartStageAssessmentId" })
+                <button type="submit" name="returnStartStage" id="returnStartStage" class="btn btn-default btn-submit">Return To Start Of Section</button>
+                <p>This takes you back to the beginning of the last section you started</p>
+            }
+        </div>
+        @if (Model.Status.Break())
+        {
+            <div>
+                @using (Html.BeginForm(MVC.Assessment.RestartFromBreak(), FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.AssessmentId, new { @id = "restartBreakAssessmentId" })
+                    <button type="submit" name="returnBreak" id="returnBreak" class="btn btn-default btn-submit">Return To Break Point Screen</button>
+                    <p>This takes you back to the point where you paused the assessment</p>
+                }
+            </div>
+        }
+    </div>
+}

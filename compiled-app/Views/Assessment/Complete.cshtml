@@ -1,0 +1,49 @@
+﻿@model Sfw.Sabp.Mca.Web.ViewModels.AssessmentViewModel
+
+@{
+    ViewBag.Title = @Model.Terminated ? "Assessment Closed" : "Assessment Complete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="container">
+    <div class="alert alert-info row" role="alert">
+        @if (@Model.Terminated)
+        {
+            <p>
+                The assessment is closed – a pdf report is now available and you should attach this to the patient record.
+            </p>
+        }
+        else
+        {
+            <p>
+                Congratulations, you have completed the assessment – a pdf report is now available and you should attach this to the patient record.
+            </p>
+        }
+        <ul>
+            <li>
+                Click the ‘Download pdf’ link alongside the correct assessment for the individual
+            </li>
+            <li>
+                Save the pdf report
+            </li>
+                <li>
+                    Add/upload the pdf report to the patient’s record in @Model.ClinicalSystemName as soon as possible
+                </li>
+        </ul>
+    </div>
+</div>
+<form>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                @Html.Partial(MVC.Assessment.Views._FeedBackText)
+            </div>
+
+            <div class="col-md-12">
+                @Html.ActionLink("Back To Search", MVC.Person.Index(), new { @class = "btn btn-default" })
+                @Html.ActionLink("Download PDF", MVC.Assessment.CreatePdf(Model.AssessmentId, Model.Patient.ClinicalSystemId), new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+</form>

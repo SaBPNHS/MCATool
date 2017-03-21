@@ -1,0 +1,74 @@
+﻿@model Sfw.Sabp.Mca.Web.ViewModels.DisclaimerViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+@using (Html.BeginForm(MVC.Home.Index(), FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.TermsAndConditionsEnabled)
+    @Html.HiddenFor(m => m.DisclaimerId)
+
+    <div class="container">
+        <div class="alert alert-info row" role="alert" >
+            <div>
+                
+                    <span>@Html.Partial(MVC.Shared.Views._InformationLogo)</span>
+
+                <p>
+                    Welcome to the Mental Capacity Assessment tool which will guide you through the process, and record the details when assessing an adult’s capacity when making a specific decision.
+                </p>
+            </div>
+            <p>The Mental Capacity Act (2005) specifies that capacity is decision specific. A person may have capacity to make some decisions and not others.</p>
+            <p>The Act says that there is:</p>
+            <ol>
+                <li>A presumption of capacity - every adult has the right to make his or her own decisions and must be assumed to have capacity to do so unless it is proved otherwise;</li>
+                <li>The right for individuals to be supported to make their own decisions - people must be given all appropriate help before anyone concludes that they cannot make their own decisions;</li>
+                <li>That individuals must retain the right to make what might be seen as eccentric or unwise decisions;</li>
+            </ol>
+            <p>This application will help you, as the decision maker or the person advising the decision maker, to assess whether the person has the capacity to make the identified decision, using the principles of the Mental Capacity Act.</p>
+            <p>The Act sets out the four criteria for deciding that a person lacks capacity. He or she must be unable:</p>
+            
+                <ul>
+                    <li>to understand the information relevant to the decision, <strong>or</strong></li>
+                    <li>to retain that information, <strong>or</strong></li>
+                    <li>to use or weigh that information as part of the process of making the decision, <strong>or</strong></li>
+                    <li>to communicate the decision (whether by talking, using sign language or any other means)</li>
+                </ul>
+            <br/>
+            <p>The tool takes you through the principles of the Act and allows you to record accurately all aspects of the capacity assessment process, giving you prompts to assist you in the process.  The results of the assessment can then be downloaded as a pdf report.</p>
+        </div>
+        <br />
+        @Html.ValidationMessageFor(model => model.IsAgreed)
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        All content and information available in this tool is based on current case law. Case law can change and it is your responsibility to keep up to date.
+                        The tool and Trust are not responsible or liable for any advice, decision or treatment, and/or any other information that results from the use of this tool
+                    </p>
+                    <div class="checkbox">
+                        @if (Model.TermsAndConditionsEnabled)
+                        {
+                            @Html.CheckBoxFor(model => model.IsAgreed)
+                        }
+                        else
+                        {
+                            @Html.HiddenFor(m => m.IsAgreed, new {@id="isAgreedHidden"})
+                            @Html.CheckBoxFor(model => model.IsAgreed, new { @disabled = "disabled" })
+                        }
+                        @Html.LabelFor(model => model.IsAgreed, new { @class = "control-label", @style = "text-align: left; font-weight: bold;" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <br />
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-default btn-submit">Start</button>
+        </div>
+    </div>
+}
+

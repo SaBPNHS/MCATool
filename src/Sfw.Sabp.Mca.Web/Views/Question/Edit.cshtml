@@ -1,0 +1,87 @@
+﻿@using Sfw.Sabp.Mca.Infrastructure.Web.HtmlExtensions
+@model Sfw.Sabp.Mca.Web.ViewModels.QuestionViewModel
+
+@{
+    ViewBag.Title = Model.StageDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Styles.Render("~/Content/InformationLogo.css")
+
+<div class="form-group">
+    <div class="alert alert-@Model.StageDescriptionStyle" role="alert">
+        <h2>@Model.StageDescription</h2>
+    </div>
+</div>
+<div class="form-group question">
+    @if (@Model.DisplayStage1DecisionMade)
+    {
+        <p> Decision to be made: @Model.Stage1DecisionMade </p>
+    }
+</div>
+<br />
+
+@if (Model.DisplayGuidance)
+{
+    <div class="alert alert-info" role="alert">
+        <span>
+            @Html.Partial(MVC.Shared.Views._InformationLogo)
+            @Html.Raw(@Model.Guidance)
+        </span>
+    </div>
+}
+
+@using (Html.BeginForm(MVC.Question.Edit(), FormMethod.Post, new { @class = "form-vertical" }))
+{
+    <div class="form-group question">
+        @Html.Raw(@Model.Question)
+    </div>
+
+    @Html.HiddenFor(m => m.StageDescription)
+    @Html.HiddenFor(m => m.DisplayGuidance)
+    @Html.HiddenFor(m => m.Guidance)
+    @Html.HiddenFor(m => m.Question)
+    @Html.HiddenFor(m => m.AssessmentId)
+    @Html.HiddenFor(m => m.DisplayFurtherInformationQuestion)
+    @Html.HiddenFor(m => m.FurtherInformationQuestion)
+    @Html.HiddenFor(m => m.PatientId)
+    @Html.HiddenFor(m => m.StageDescriptionStyle)
+    @Html.HiddenFor(m => m.DisableBackButton)
+    @Html.HiddenCollectionOf(Model, m => m.Options)
+    @Html.HiddenFor(m => m.Stage1DecisionMade)
+    @Html.HiddenFor(m => m.DisplayStage1DecisionMade)
+    @Html.HiddenFor(m => m.QuestionAnswerId)
+    
+    @Html.AntiForgeryToken()
+
+    if (Model.DisplayOptions)
+    {
+        <div class="form-group">
+            @foreach (var option in Model.Options)
+            {
+                if (option.Selected)
+                {
+                    <button type="submit" name="chosenOption" class="btn btn-success btn-selected" value="@option.QuestionOptionId" disabled="disabled">@option.Description</button>   
+                }
+                else
+                {
+                    <button type="submit" name="chosenOption" class="btn" value="@option.QuestionOptionId" disabled="disabled">@option.Description</button>
+                }
+            }
+        </div>
+    }
+
+    @Html.HiddenFor(m => m.ChosenOption)
+
+    <div class="form-group">
+
+        @if (Model.DisplayFurtherInformationQuestion)
+        {
+            <div class="furtherinformation"><label for="FurtherInformationAnswer">@Model.FurtherInformationQuestion</label>@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)</div>
+            @Html.TextAreaFor(m => m.FurtherInformationAnswer, new { @class = "form-control", @rows = "10" })
+        }
+        @Html.ValidationMessageFor(m => m.FurtherInformationAnswer)
+    </div>
+
+    <button type="submit" name="continueButton" class="btn btn btn-default btn-submit" value="true">Continue</button>
+}
+

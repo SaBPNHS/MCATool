@@ -1,0 +1,1343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Sfw.Sabp.Mca.DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Assessment">
+          <Key>
+            <PropertyRef Name="AssessmentId" />
+          </Key>
+          <Property Name="AssessmentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PatientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateAssessmentStarted" Type="smalldatetime" />
+          <Property Name="Stage1InfoText" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Stage1DecisionToBeMade" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Stage1DecisionConfirmation" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Stage1DecisionClearlyMade" Type="bit" Nullable="false" />
+          <Property Name="WorkflowVersionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AssessorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="AssessorDomainName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ReadOnly" Type="bit" Nullable="false" />
+          <Property Name="CurrentWorkflowQuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PreviousWorkflowQuestionId" Type="uniqueidentifier" />
+          <Property Name="ResetWorkflowQuestionId" Type="uniqueidentifier" />
+          <Property Name="DateAssessmentEnded" Type="smalldatetime" />
+          <Property Name="TerminatedAssessmentReason" Type="nvarchar" MaxLength="150" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="DecisionMaker" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AuditLogId" />
+          </Key>
+          <Property Name="AuditLogId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EventDateTime" Type="datetime" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Controller" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="AuditData" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Disclaimer">
+          <Key>
+            <PropertyRef Name="DisclaimerId" />
+          </Key>
+          <Property Name="DisclaimerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AssessorDomainName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsAgreed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClinicalSystemId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NhsNumber" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="GenderId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Guidance" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="QuestionAnswerId" />
+          </Key>
+          <Property Name="QuestionAnswerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AssessmentId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkflowQuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionOptionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FurtherInformation" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="QuestionOptionId" />
+          </Key>
+          <Property Name="QuestionOptionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OptionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FurtherInformationQuestionId" Type="uniqueidentifier" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkflowQuestion">
+          <Key>
+            <PropertyRef Name="WorkflowQuestionId" />
+          </Key>
+          <Property Name="WorkflowQuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkflowStageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkflowStage">
+          <Key>
+            <PropertyRef Name="WorkflowStageId" />
+          </Key>
+          <Property Name="WorkflowStageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkflowVersionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="InitialWorkflowQuestionId" Type="uniqueidentifier" />
+          <Property Name="DisplayStage1DecisionMade" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkflowStep">
+          <Key>
+            <PropertyRef Name="WorkflowStepId" />
+          </Key>
+          <Property Name="WorkflowStepId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkflowVersionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CurrentWorkflowQuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionOptionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="NextWorkflowQuestionId" Type="uniqueidentifier" />
+          <Property Name="OutcomeStatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkflowVersion">
+          <Key>
+            <PropertyRef Name="WorkflowVersionId" />
+          </Key>
+          <Property Name="WorkflowVersionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="InitialWorkflowQuestionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExpiredDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Assessment_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_PreviousWorkflowQuestion">
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="0..1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="PreviousWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_ResetWorkflowQuestion">
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="0..1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="ResetWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_WorkflowQuestion">
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="CurrentWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_WorkflowVersion">
+          <End Role="WorkflowVersion" Type="Self.WorkflowVersion" Multiplicity="1" />
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowVersion">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_Gender">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_Assessment">
+          <End Role="Assessment" Type="Self.Assessment" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="AssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_QuestionOption">
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="QuestionOptionId" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_WorkflowQuestion">
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="1" />
+          <End Role="QuestionAnswer" Type="Self.QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionOption_FurtherQuestion">
+          <End Role="Question" Type="Self.Question" Multiplicity="0..1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="FurtherInformationQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionOption_Option">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionOption_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workflow_Question">
+          <End Role="Question" Type="Self.Question" Multiplicity="1" />
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowQuestion">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Workflow_WorkflowStage">
+          <End Role="WorkflowStage" Type="Self.WorkflowStage" Multiplicity="1" />
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowStage">
+              <PropertyRef Name="WorkflowStageId" />
+            </Principal>
+            <Dependent Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStage_WorkflowQuestion">
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="0..1" />
+          <End Role="WorkflowStage" Type="Self.WorkflowStage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowStage">
+              <PropertyRef Name="InitialWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStage_WorkflowVersion">
+          <End Role="WorkflowVersion" Type="Self.WorkflowVersion" Multiplicity="1" />
+          <End Role="WorkflowStage" Type="Self.WorkflowStage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowVersion">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Principal>
+            <Dependent Role="WorkflowStage">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStep_WorkflowQuestion">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="WorkflowStep" Type="Self.WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="OutcomeStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStep_WorkflowQuestion1">
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="1" />
+          <End Role="WorkflowStep" Type="Self.WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="CurrentWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStep_WorkflowVersion">
+          <End Role="WorkflowVersion" Type="Self.WorkflowVersion" Multiplicity="1" />
+          <End Role="WorkflowStep" Type="Self.WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowVersion">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowSteps_QuestionOption">
+          <End Role="QuestionOption" Type="Self.QuestionOption" Multiplicity="1" />
+          <End Role="WorkflowStep" Type="Self.WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="QuestionOptionId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="QuestionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowVersion_WorkflowQuestion">
+          <End Role="WorkflowQuestion" Type="Self.WorkflowQuestion" Multiplicity="1" />
+          <End Role="WorkflowVersion" Type="Self.WorkflowVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowVersion">
+              <PropertyRef Name="InitialWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SfwSabpMcaDatabaseModelStoreContainer">
+          <EntitySet Name="Assessment" EntityType="Self.Assessment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditLog" EntityType="Self.AuditLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disclaimer" EntityType="Self.Disclaimer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionAnswer" EntityType="Self.QuestionAnswer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionOption" EntityType="Self.QuestionOption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkflowQuestion" EntityType="Self.WorkflowQuestion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkflowStage" EntityType="Self.WorkflowStage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkflowStep" EntityType="Self.WorkflowStep" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkflowVersion" EntityType="Self.WorkflowVersion" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Assessment_Patient" Association="Self.FK_Assessment_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_PreviousWorkflowQuestion" Association="Self.FK_Assessment_PreviousWorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_ResetWorkflowQuestion" Association="Self.FK_Assessment_ResetWorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_Role" Association="Self.FK_Assessment_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_Status" Association="Self.FK_Assessment_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_WorkflowQuestion" Association="Self.FK_Assessment_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_WorkflowVersion" Association="Self.FK_Assessment_WorkflowVersion">
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersion" />
+            <End Role="Assessment" EntitySet="Assessment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_Gender" Association="Self.FK_Patient_Gender">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Patient" EntitySet="Patient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_Assessment" Association="Self.FK_QuestionAnswer_Assessment">
+            <End Role="Assessment" EntitySet="Assessment" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_QuestionOption" Association="Self.FK_QuestionAnswer_QuestionOption">
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_WorkflowQuestion" Association="Self.FK_QuestionAnswer_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOption_FurtherQuestion" Association="Self.FK_QuestionOption_FurtherQuestion">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOption_Option" Association="Self.FK_QuestionOption_Option">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOption_Question" Association="Self.FK_QuestionOption_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workflow_Question" Association="Self.FK_Workflow_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workflow_WorkflowStage" Association="Self.FK_Workflow_WorkflowStage">
+            <End Role="WorkflowStage" EntitySet="WorkflowStage" />
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStage_WorkflowQuestion" Association="Self.FK_WorkflowStage_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+            <End Role="WorkflowStage" EntitySet="WorkflowStage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStage_WorkflowVersion" Association="Self.FK_WorkflowStage_WorkflowVersion">
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersion" />
+            <End Role="WorkflowStage" EntitySet="WorkflowStage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStep_WorkflowQuestion" Association="Self.FK_WorkflowStep_WorkflowQuestion">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="WorkflowStep" EntitySet="WorkflowStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStep_WorkflowQuestion1" Association="Self.FK_WorkflowStep_WorkflowQuestion1">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+            <End Role="WorkflowStep" EntitySet="WorkflowStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStep_WorkflowVersion" Association="Self.FK_WorkflowStep_WorkflowVersion">
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersion" />
+            <End Role="WorkflowStep" EntitySet="WorkflowStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowSteps_QuestionOption" Association="Self.FK_WorkflowSteps_QuestionOption">
+            <End Role="QuestionOption" EntitySet="QuestionOption" />
+            <End Role="WorkflowStep" EntitySet="WorkflowStep" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowVersion_WorkflowQuestion" Association="Self.FK_WorkflowVersion_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestion" />
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Sfw.Sabp.Mca.DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Mca" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Options" EntityType="Sfw.Sabp.Mca.DatabaseModel.Option" />
+          <EntitySet Name="Questions" EntityType="Sfw.Sabp.Mca.DatabaseModel.Question" />
+          <EntitySet Name="WorkflowQuestions" EntityType="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" />
+          <EntitySet Name="WorkflowSteps" EntityType="Sfw.Sabp.Mca.DatabaseModel.WorkflowStep" />
+          <EntitySet Name="WorkflowVersions" EntityType="Sfw.Sabp.Mca.DatabaseModel.WorkflowVersion" />
+          <AssociationSet Name="FK_Workflow_Question" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Workflow_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStep_WorkflowQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="WorkflowStep" EntitySet="WorkflowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowVersion_WorkflowQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowVersion_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersions" />
+          </AssociationSet>
+          <EntitySet Name="QuestionOptions" EntityType="Sfw.Sabp.Mca.DatabaseModel.QuestionOption" />
+          <AssociationSet Name="FK_QuestionOption_Option" Association="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_Option">
+            <End Role="Option" EntitySet="Options" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOption_FurtherQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_FurtherQuestion">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionOption_Question" Association="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_Question">
+            <End Role="Question" EntitySet="Questions" />
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowSteps_QuestionOption" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowSteps_QuestionOption">
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+            <End Role="WorkflowStep" EntitySet="WorkflowSteps" />
+          </AssociationSet>
+          <EntitySet Name="Status" EntityType="Sfw.Sabp.Mca.DatabaseModel.Status" />
+          <AssociationSet Name="FK_WorkflowStep_WorkflowQuestion1" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion1">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="WorkflowStep" EntitySet="WorkflowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStep_WorkflowVersion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowVersion">
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersions" />
+            <End Role="WorkflowStep" EntitySet="WorkflowSteps" />
+          </AssociationSet>
+          <EntitySet Name="Assessments" EntityType="Sfw.Sabp.Mca.DatabaseModel.Assessment" />
+          <AssociationSet Name="FK_Assessment_Status" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_WorkflowQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_WorkflowVersion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_WorkflowVersion">
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersions" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStep_WorkflowQuestion2" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion2">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="WorkflowStep" EntitySet="WorkflowSteps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Assessment_PreviousWorkflowQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_PreviousWorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <EntitySet Name="AuditLogs" EntityType="Sfw.Sabp.Mca.DatabaseModel.AuditLog" />
+          <AssociationSet Name="FK_Assessment_ResetWorkflowQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_ResetWorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <EntitySet Name="WorkflowStages" EntityType="Sfw.Sabp.Mca.DatabaseModel.WorkflowStage" />
+          <AssociationSet Name="FK_Workflow_WorkflowStage" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Workflow_WorkflowStage">
+            <End Role="WorkflowStage" EntitySet="WorkflowStages" />
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStage_WorkflowQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStage_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="WorkflowStage" EntitySet="WorkflowStages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkflowStage_WorkflowVersion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStage_WorkflowVersion">
+            <End Role="WorkflowVersion" EntitySet="WorkflowVersions" />
+            <End Role="WorkflowStage" EntitySet="WorkflowStages" />
+          </AssociationSet>
+          <EntitySet Name="Genders" EntityType="Sfw.Sabp.Mca.DatabaseModel.Gender" />
+          <EntitySet Name="Patients" EntityType="Sfw.Sabp.Mca.DatabaseModel.Patient" />
+          <AssociationSet Name="FK_Assessment_Patient" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Patient">
+            <End Role="Patient" EntitySet="Patients" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patient_Gender" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Patient_Gender">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="Patient" EntitySet="Patients" />
+          </AssociationSet>
+          <EntitySet Name="Disclaimers" EntityType="Sfw.Sabp.Mca.DatabaseModel.Disclaimer" />
+          <EntitySet Name="Roles" EntityType="Sfw.Sabp.Mca.DatabaseModel.Role" />
+          <AssociationSet Name="FK_Assessment_Role" Association="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Assessment" EntitySet="Assessments" />
+          </AssociationSet>
+          <EntitySet Name="QuestionAnswers" EntityType="Sfw.Sabp.Mca.DatabaseModel.QuestionAnswer" />
+          <AssociationSet Name="FK_QuestionAnswer_Assessment" Association="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_Assessment">
+            <End Role="Assessment" EntitySet="Assessments" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_QuestionOption" Association="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_QuestionOption">
+            <End Role="QuestionOption" EntitySet="QuestionOptions" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionAnswer_WorkflowQuestion" Association="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_WorkflowQuestion">
+            <End Role="WorkflowQuestion" EntitySet="WorkflowQuestions" />
+            <End Role="QuestionAnswer" EntitySet="QuestionAnswers" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="OptionId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="QuestionOptions" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_Option" FromRole="Option" ToRole="QuestionOption" />
+        </EntityType>
+        <EntityType Name="Question">
+          <Key>
+            <PropertyRef Name="QuestionId" />
+          </Key>
+          <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WorkflowQuestions" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Workflow_Question" FromRole="Question" ToRole="WorkflowQuestion" />
+          <Property Name="Guidance" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FurtherQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_FurtherQuestion" FromRole="Question" ToRole="QuestionOption" />
+          <NavigationProperty Name="QuestionOptions" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_Question" FromRole="Question" ToRole="QuestionOption" />
+        </EntityType>
+        <EntityType Name="WorkflowQuestion">
+          <Key>
+            <PropertyRef Name="WorkflowQuestionId" />
+          </Key>
+          <Property Name="WorkflowQuestionId" Type="Guid" Nullable="false" />
+          <Property Name="WorkflowStageId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Question" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Workflow_Question" FromRole="WorkflowQuestion" ToRole="Question" />
+          <NavigationProperty Name="WorkflowSteps" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion" FromRole="WorkflowQuestion" ToRole="WorkflowStep" />
+          <NavigationProperty Name="WorkflowVersions" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowVersion_WorkflowQuestion" FromRole="WorkflowQuestion" ToRole="WorkflowVersion" />
+          <NavigationProperty Name="WorkflowSteps1" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion1" FromRole="WorkflowQuestion" ToRole="WorkflowStep" />
+          <NavigationProperty Name="Assessments" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_WorkflowQuestion" FromRole="WorkflowQuestion" ToRole="Assessment" />
+          <NavigationProperty Name="Assessments1" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_PreviousWorkflowQuestion" FromRole="WorkflowQuestion" ToRole="Assessment" />
+          <NavigationProperty Name="Assessments11" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_ResetWorkflowQuestion" FromRole="WorkflowQuestion" ToRole="Assessment" />
+          <NavigationProperty Name="WorkflowStage" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Workflow_WorkflowStage" FromRole="WorkflowQuestion" ToRole="WorkflowStage" />
+          <NavigationProperty Name="WorkflowStages" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStage_WorkflowQuestion" FromRole="WorkflowQuestion" ToRole="WorkflowStage" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_WorkflowQuestion" FromRole="WorkflowQuestion" ToRole="QuestionAnswer" />
+        </EntityType>
+        <EntityType Name="WorkflowStep">
+          <Key>
+            <PropertyRef Name="WorkflowStepId" />
+          </Key>
+          <Property Name="WorkflowStepId" Type="Guid" Nullable="false" />
+          <Property Name="WorkflowVersionId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionOptionId" Type="Guid" Nullable="false" />
+          <Property Name="NextWorkflowQuestionId" Type="Guid" />
+          <NavigationProperty Name="WorkflowQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion" FromRole="WorkflowStep" ToRole="WorkflowQuestion" />
+          <NavigationProperty Name="QuestionOption" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowSteps_QuestionOption" FromRole="WorkflowStep" ToRole="QuestionOption" />
+          <Property Name="CurrentWorkflowQuestionId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="WorkflowQuestion1" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion1" FromRole="WorkflowStep" ToRole="WorkflowQuestion" />
+          <NavigationProperty Name="WorkflowVersion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowVersion" FromRole="WorkflowStep" ToRole="WorkflowVersion" />
+          <Property Name="OutcomeStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion2" FromRole="WorkflowStep" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="WorkflowVersion">
+          <Key>
+            <PropertyRef Name="WorkflowVersionId" />
+          </Key>
+          <Property Name="WorkflowVersionId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="InitialWorkflowQuestionId" Type="Guid" Nullable="false" />
+          <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="WorkflowQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowVersion_WorkflowQuestion" FromRole="WorkflowVersion" ToRole="WorkflowQuestion" />
+          <NavigationProperty Name="WorkflowSteps" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowVersion" FromRole="WorkflowVersion" ToRole="WorkflowStep" />
+          <NavigationProperty Name="Assessments" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_WorkflowVersion" FromRole="WorkflowVersion" ToRole="Assessment" />
+          <NavigationProperty Name="WorkflowStages" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStage_WorkflowVersion" FromRole="WorkflowVersion" ToRole="WorkflowStage" />
+        </EntityType>
+        <Association Name="FK_Workflow_Question">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowQuestion">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStep_WorkflowQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="0..1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStep" Role="WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="NextWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowVersion_WorkflowQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowVersion" Role="WorkflowVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowVersion">
+              <PropertyRef Name="InitialWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="QuestionOption">
+          <Key>
+            <PropertyRef Name="QuestionOptionId" />
+          </Key>
+          <Property Name="QuestionOptionId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionId" Type="Guid" Nullable="false" />
+          <Property Name="OptionId" Type="Guid" Nullable="false" />
+          <Property Name="FurtherInformationQuestionId" Type="Guid" />
+          <NavigationProperty Name="Option" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_Option" FromRole="QuestionOption" ToRole="Option" />
+          <NavigationProperty Name="FurtherQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_FurtherQuestion" FromRole="QuestionOption" ToRole="Question" />
+          <NavigationProperty Name="Question" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionOption_Question" FromRole="QuestionOption" ToRole="Question" />
+          <NavigationProperty Name="WorkflowSteps" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowSteps_QuestionOption" FromRole="QuestionOption" ToRole="WorkflowStep" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_QuestionOption" FromRole="QuestionOption" ToRole="QuestionAnswer" />
+        </EntityType>
+        <Association Name="FK_QuestionOption_Option">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Option" Role="Option" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionOption" Role="QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionOption_FurtherQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Question" Role="Question" Multiplicity="0..1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionOption" Role="QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="FurtherInformationQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionOption_Question">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionOption" Role="QuestionOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="QuestionId" />
+            </Principal>
+            <Dependent Role="QuestionOption">
+              <PropertyRef Name="QuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowSteps_QuestionOption">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionOption" Role="QuestionOption" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStep" Role="WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="QuestionOptionId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="QuestionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Assessments" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Status" FromRole="Status" ToRole="Assessment" />
+          <NavigationProperty Name="WorkflowSteps" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStep_WorkflowQuestion2" FromRole="Status" ToRole="WorkflowStep" />
+        </EntityType>
+        <Association Name="FK_WorkflowStep_WorkflowQuestion1">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStep" Role="WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="CurrentWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStep_WorkflowVersion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowVersion" Role="WorkflowVersion" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStep" Role="WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowVersion">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Assessment">
+          <Key>
+            <PropertyRef Name="AssessmentId" />
+          </Key>
+          <Property Name="AssessmentId" Type="Guid" Nullable="false" />
+          <Property Name="PatientId" Type="Guid" Nullable="false" />
+          <Property Name="DateAssessmentStarted" Type="DateTime" Precision="0" />
+          <Property Name="Stage1InfoText" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Stage1DecisionToBeMade" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Stage1DecisionConfirmation" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Stage1DecisionClearlyMade" Type="Boolean" Nullable="false" />
+          <Property Name="CurrentWorkflowQuestionId" Type="Guid" Nullable="false" />
+          <Property Name="WorkflowVersionId" Type="Guid" Nullable="false" />
+          <Property Name="AssessorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Status" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Status" FromRole="Assessment" ToRole="Status" />
+          <NavigationProperty Name="WorkflowQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_WorkflowQuestion" FromRole="Assessment" ToRole="WorkflowQuestion" />
+          <NavigationProperty Name="WorkflowVersion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_WorkflowVersion" FromRole="Assessment" ToRole="WorkflowVersion" />
+          <Property Name="PreviousWorkflowQuestionId" Type="Guid" />
+          <NavigationProperty Name="PreviousWorkflowQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_PreviousWorkflowQuestion" FromRole="Assessment" ToRole="WorkflowQuestion" />
+          <Property Name="AssessorDomainName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReadOnly" Type="Boolean" Nullable="false" />
+          <Property Name="ResetWorkflowQuestionId" Type="Guid" />
+          <NavigationProperty Name="ResetWorkflowQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_ResetWorkflowQuestion" FromRole="Assessment" ToRole="WorkflowQuestion" />
+          <Property Name="DateAssessmentEnded" Type="DateTime" Precision="0" />
+          <Property Name="TerminatedAssessmentReason" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patient" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Patient" FromRole="Assessment" ToRole="Patient" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Role" FromRole="Assessment" ToRole="Role" />
+          <Property Name="DecisionMaker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="QuestionAnswers" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_Assessment" FromRole="Assessment" ToRole="QuestionAnswer" />
+        </EntityType>
+        <Association Name="FK_Assessment_Status">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_WorkflowQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="CurrentWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_WorkflowVersion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowVersion" Role="WorkflowVersion" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowVersion">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStep_WorkflowQuestion2">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStep" Role="WorkflowStep" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="WorkflowStep">
+              <PropertyRef Name="OutcomeStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_PreviousWorkflowQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="0..1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="PreviousWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Assessment_ResetWorkflowQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="0..1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="ResetWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AuditLog">
+          <Key>
+            <PropertyRef Name="AuditLogId" />
+          </Key>
+          <Property Name="AuditLogId" Type="Guid" Nullable="false" />
+          <Property Name="User" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EventDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Action" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Controller" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AuditData" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="WorkflowStage">
+          <Key>
+            <PropertyRef Name="WorkflowStageId" />
+          </Key>
+          <Property Name="WorkflowStageId" Type="Guid" Nullable="false" />
+          <Property Name="WorkflowVersionId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="InitialWorkflowQuestionId" Type="Guid" />
+          <Property Name="DisplayStage1DecisionMade" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="WorkflowQuestions" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Workflow_WorkflowStage" FromRole="WorkflowStage" ToRole="WorkflowQuestion" />
+          <NavigationProperty Name="WorkflowQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStage_WorkflowQuestion" FromRole="WorkflowStage" ToRole="WorkflowQuestion" />
+          <NavigationProperty Name="WorkflowVersion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_WorkflowStage_WorkflowVersion" FromRole="WorkflowStage" ToRole="WorkflowVersion" />
+        </EntityType>
+        <Association Name="FK_Workflow_WorkflowStage">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStage" Role="WorkflowStage" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowStage">
+              <PropertyRef Name="WorkflowStageId" />
+            </Principal>
+            <Dependent Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowStageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStage_WorkflowQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="0..1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStage" Role="WorkflowStage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="WorkflowStage">
+              <PropertyRef Name="InitialWorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkflowStage_WorkflowVersion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowVersion" Role="WorkflowVersion" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowStage" Role="WorkflowStage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowVersion">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Principal>
+            <Dependent Role="WorkflowStage">
+              <PropertyRef Name="WorkflowVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="GenderId" />
+          </Key>
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Patients" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Patient_Gender" FromRole="Gender" ToRole="Patient" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientId" />
+          </Key>
+          <Property Name="PatientId" Type="Guid" Nullable="false" />
+          <Property Name="ClinicalSystemId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NhsNumber" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GenderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Assessments" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Patient" FromRole="Patient" ToRole="Assessment" />
+          <NavigationProperty Name="Gender" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Patient_Gender" FromRole="Patient" ToRole="Gender" />
+        </EntityType>
+        <Association Name="FK_Assessment_Patient">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Patient" Role="Patient" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="PatientId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patient_Gender">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Patient" Role="Patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="GenderId" />
+            </Principal>
+            <Dependent Role="Patient">
+              <PropertyRef Name="GenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Disclaimer">
+          <Key>
+            <PropertyRef Name="DisclaimerId" />
+          </Key>
+          <Property Name="DisclaimerId" Type="Guid" Nullable="false" />
+          <Property Name="AssessorDomainName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsAgreed" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Assessments" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_Assessment_Role" FromRole="Role" ToRole="Assessment" />
+        </EntityType>
+        <Association Name="FK_Assessment_Role">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Assessment">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="QuestionAnswer">
+          <Key>
+            <PropertyRef Name="QuestionAnswerId" />
+          </Key>
+          <Property Name="QuestionAnswerId" Type="Guid" Nullable="false" />
+          <Property Name="AssessmentId" Type="Guid" Nullable="false" />
+          <Property Name="WorkflowQuestionId" Type="Guid" Nullable="false" />
+          <Property Name="QuestionOptionId" Type="Guid" Nullable="false" />
+          <Property Name="FurtherInformation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Assessment" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_Assessment" FromRole="QuestionAnswer" ToRole="Assessment" />
+          <NavigationProperty Name="QuestionOption" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_QuestionOption" FromRole="QuestionAnswer" ToRole="QuestionOption" />
+          <NavigationProperty Name="WorkflowQuestion" Relationship="Sfw.Sabp.Mca.DatabaseModel.FK_QuestionAnswer_WorkflowQuestion" FromRole="QuestionAnswer" ToRole="WorkflowQuestion" />
+        </EntityType>
+        <Association Name="FK_QuestionAnswer_Assessment">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.Assessment" Role="Assessment" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionAnswer" Role="QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Assessment">
+              <PropertyRef Name="AssessmentId" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="AssessmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_QuestionOption">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionOption" Role="QuestionOption" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionAnswer" Role="QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionOption">
+              <PropertyRef Name="QuestionOptionId" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="QuestionOptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionAnswer_WorkflowQuestion">
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion" Role="WorkflowQuestion" Multiplicity="1" />
+          <End Type="Sfw.Sabp.Mca.DatabaseModel.QuestionAnswer" Role="QuestionAnswer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkflowQuestion">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Principal>
+            <Dependent Role="QuestionAnswer">
+              <PropertyRef Name="WorkflowQuestionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SfwSabpMcaDatabaseModelStoreContainer" CdmEntityContainer="Mca" >
+          <EntitySetMapping Name="Options">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Option">
+              <MappingFragment StoreEntitySet="Option">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Questions">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Question">
+              <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="Guidance" ColumnName="Guidance" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkflowQuestions">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.WorkflowQuestion">
+              <MappingFragment StoreEntitySet="WorkflowQuestion">
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="WorkflowStageId" ColumnName="WorkflowStageId" />
+                <ScalarProperty Name="WorkflowQuestionId" ColumnName="WorkflowQuestionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkflowSteps">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.WorkflowStep">
+              <MappingFragment StoreEntitySet="WorkflowStep">
+                <ScalarProperty Name="OutcomeStatusId" ColumnName="OutcomeStatusId" />
+                <ScalarProperty Name="CurrentWorkflowQuestionId" ColumnName="CurrentWorkflowQuestionId" />
+                <ScalarProperty Name="NextWorkflowQuestionId" ColumnName="NextWorkflowQuestionId" />
+                <ScalarProperty Name="QuestionOptionId" ColumnName="QuestionOptionId" />
+                <ScalarProperty Name="WorkflowVersionId" ColumnName="WorkflowVersionId" />
+                <ScalarProperty Name="WorkflowStepId" ColumnName="WorkflowStepId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkflowVersions">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.WorkflowVersion">
+              <MappingFragment StoreEntitySet="WorkflowVersion">
+                <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+                <ScalarProperty Name="InitialWorkflowQuestionId" ColumnName="InitialWorkflowQuestionId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WorkflowVersionId" ColumnName="WorkflowVersionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionOptions">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.QuestionOption">
+              <MappingFragment StoreEntitySet="QuestionOption">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="FurtherInformationQuestionId" ColumnName="FurtherInformationQuestionId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="QuestionOptionId" ColumnName="QuestionOptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Assessments">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Assessment">
+              <MappingFragment StoreEntitySet="Assessment">
+                <ScalarProperty Name="DecisionMaker" ColumnName="DecisionMaker" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="TerminatedAssessmentReason" ColumnName="TerminatedAssessmentReason" />
+                <ScalarProperty Name="DateAssessmentEnded" ColumnName="DateAssessmentEnded" />
+                <ScalarProperty Name="ResetWorkflowQuestionId" ColumnName="ResetWorkflowQuestionId" />
+                <ScalarProperty Name="AssessorDomainName" ColumnName="AssessorDomainName" />
+                <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
+                <ScalarProperty Name="PreviousWorkflowQuestionId" ColumnName="PreviousWorkflowQuestionId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AssessorName" ColumnName="AssessorName" />
+                <ScalarProperty Name="WorkflowVersionId" ColumnName="WorkflowVersionId" />
+                <ScalarProperty Name="CurrentWorkflowQuestionId" ColumnName="CurrentWorkflowQuestionId" />
+                <ScalarProperty Name="Stage1DecisionClearlyMade" ColumnName="Stage1DecisionClearlyMade" />
+                <ScalarProperty Name="Stage1DecisionConfirmation" ColumnName="Stage1DecisionConfirmation" />
+                <ScalarProperty Name="Stage1DecisionToBeMade" ColumnName="Stage1DecisionToBeMade" />
+                <ScalarProperty Name="Stage1InfoText" ColumnName="Stage1InfoText" />
+                <ScalarProperty Name="DateAssessmentStarted" ColumnName="DateAssessmentStarted" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditLogs">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.AuditLog">
+              <MappingFragment StoreEntitySet="AuditLog">
+                <ScalarProperty Name="AuditData" ColumnName="AuditData" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="EventDateTime" ColumnName="EventDateTime" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="AuditLogId" ColumnName="AuditLogId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkflowStages">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.WorkflowStage">
+              <MappingFragment StoreEntitySet="WorkflowStage">
+                <ScalarProperty Name="DisplayStage1DecisionMade" ColumnName="DisplayStage1DecisionMade" />
+                <ScalarProperty Name="InitialWorkflowQuestionId" ColumnName="InitialWorkflowQuestionId" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="WorkflowVersionId" ColumnName="WorkflowVersionId" />
+                <ScalarProperty Name="WorkflowStageId" ColumnName="WorkflowStageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="NhsNumber" ColumnName="NhsNumber" />
+                <ScalarProperty Name="ClinicalSystemId" ColumnName="ClinicalSystemId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Disclaimers">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Disclaimer">
+              <MappingFragment StoreEntitySet="Disclaimer">
+                <ScalarProperty Name="IsAgreed" ColumnName="IsAgreed" />
+                <ScalarProperty Name="AssessorDomainName" ColumnName="AssessorDomainName" />
+                <ScalarProperty Name="DisclaimerId" ColumnName="DisclaimerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionAnswers">
+            <EntityTypeMapping TypeName="Sfw.Sabp.Mca.DatabaseModel.QuestionAnswer">
+              <MappingFragment StoreEntitySet="QuestionAnswer">
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="FurtherInformation" ColumnName="FurtherInformation" />
+                <ScalarProperty Name="QuestionOptionId" ColumnName="QuestionOptionId" />
+                <ScalarProperty Name="WorkflowQuestionId" ColumnName="WorkflowQuestionId" />
+                <ScalarProperty Name="AssessmentId" ColumnName="AssessmentId" />
+                <ScalarProperty Name="QuestionAnswerId" ColumnName="QuestionAnswerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

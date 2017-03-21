@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Tutorial";
+}
+
+<div class="container">
+    <div class="alert alert-info row" role="alert">
+        <p>
+        <div class="tutorial">
+            <span>@Html.Partial(MVC.Shared.Views._InformationLogo)</span>
+
+            <strong>MCA Tool Tutorial</strong>
+
+        </div>
+        <p>
+            <strong> Getting started</strong>
+        </p>
+        <p>
+            To start using this tool you need to find the person you are going to assess on the system. To do this click the ‘Next’ button below and this will take you to the ‘Search person’ page. Enter the person’s Rio Id and click ‘Search’. This should show their details – click the Rio Id link and you can get started.
+        </p>
+        <p>
+            If the search doesn’t find the person, you will need to create them. To do this, click the ‘Create person’ button on the Search person page, enter the details and click on ‘Create Person and Begin Assessment’.
+        </p>
+        <p>
+            Once the person is found or created you can begin an assessment.
+        </p>
+        <br />
+        <p>
+            <strong> Making the assessment</strong>
+        </p>
+        <p>
+            The tool will guide you through the steps needed to ensure that you thoroughly assess the person’s capacity to make the relevant decision now.
+        </p>
+        <br/>
+        <ol>
+            <li>
+                Defining the decision to be made – it must be specific and clear
+            </li>
+            <br/>
+            <li>
+                Whether the person has an impairment or disturbance of some kind
+            </li>
+            <p>
+                If the person does not have an impairment, the process will stop after this section – and if the impairment is temporary you will also have the option to stop and return later.
+            </p>
+        </ol>
+       
+        <ol>
+            <li value="3">
+                Personal or environmental factors that may affect the person’s capacity to make the decision
+            </li>
+            <p>Depending on your responses to the questions in this section, you may need to pause the assessment and return to it later. If this happens, to resume the assessment you will need to locate the person on the tool and click the ‘Resume’ link.</p>
+        </ol>
+
+        <ol>
+            <li value="4">
+                Providing information about the decision – and checking understanding
+            </li>
+            <br/>
+            <li>
+                Your judgement about the person’s capacity to make the decision
+            </li>
+        </ol>
+
+        <p>
+            Throughout each of these sections, you can at any time click the ‘Back’ button, which will take you back to the previous question, or the ‘Reset’ button, which will return you to the start of the section you are in if you wish to amend anything.
+        </p>
+        <br />
+        <p>
+            <strong>Ending the assessment</strong>
+        </p>
+        <p>
+            If after following the process you believe that the person does have capacity to make the decision,this tool will record the decision and supply a downloadable pdf report of your answers to each of the questions.
+        </p>
+    </div>
+</div>
+
+@Html.ActionLink("Next", MVC.Person.Index(), new { @class = "btn btn-default" })

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseName>Sfw.Sabp.Mca.Database</TargetDatabaseName>
+    <DeployScriptFileName>Sfw.Sabp.Mca.Database.sql</DeployScriptFileName>
+    <ScriptDatabaseOptions>True</ScriptDatabaseOptions>
+    <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
+    <GenerateSmartDefaults>True</GenerateSmartDefaults>
+    <ProfileVersionNumber>1</ProfileVersionNumber>
+    <TargetConnectionString>Data Source=SABTEST01;Persist Security Info=True;User ID=msdeploy;pwd=Takecare*99!;Pooling=False</TargetConnectionString>
+  </PropertyGroup>
+</Project>

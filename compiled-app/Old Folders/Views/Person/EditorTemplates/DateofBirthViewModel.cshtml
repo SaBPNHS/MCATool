@@ -1,0 +1,33 @@
+﻿@using Sfw.Sabp.Mca.Infrastructure.Web.HtmlExtensions
+@model Sfw.Sabp.Mca.Web.ViewModels.DateOfBirthViewModel
+
+
+@Html.HiddenCollectionOf(Model, m => m.Days)
+@Html.HiddenCollectionOf(Model, m => m.Months)
+@Html.HiddenCollectionOf(Model, m => m.Years)
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.Day, new {@class="sr-only"})
+        @Html.DropDownListFor(model => model.Day, Model.Days, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Day)
+    </div>
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.Month, new { @class = "sr-only" })
+        @Html.DropDownListFor(model => model.Month, Model.Months, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Month)
+    </div>
+    <div class="col-md-4">
+        @Html.LabelFor(m => m.Year, new { @class = "sr-only" })
+        @Html.DropDownListFor(model => model.Year, Model.Years, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Year)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.ValidationMessageFor(model => model.Date)
+    </div>
+    @Html.HiddenFor(model => model.Date)
+</div>
+
+

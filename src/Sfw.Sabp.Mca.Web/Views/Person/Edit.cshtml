@@ -1,0 +1,92 @@
+﻿@using Sfw.Sabp.Mca.Infrastructure.Web.HtmlExtensions
+@model Sfw.Sabp.Mca.Web.ViewModels.EditPatientViewModel
+@{
+    ViewBag.Title = "Edit Person";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(MVC.Person.Edit(), FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PatientId)
+    @Html.HiddenCollectionOf(Model, m => m.Genders)
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.ClinicalSystemId, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ClinicalSystemId, new { @class = "form-control", @maxlength="50" })
+                @Html.ValidationMessageFor(model => model.ClinicalSystemId)
+                @Html.HiddenFor(model => model.CurrentClinicalSystemId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.NhsNumber, new { @class = "control-label" })
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.NhsNumber, new { @class = "form-control", @maxlength = "10" })
+                @Html.ValidationMessageFor(model => model.NhsNumber)
+                @Html.HiddenFor(model => model.CurrentNhsNumber)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.FirstName, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @maxlength = "50" })
+                @Html.ValidationMessageFor(model => model.FirstName)
+                @Html.HiddenFor(model => model.CurrentFirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.LastName, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+            </div>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @maxlength = "50" })
+                @Html.ValidationMessageFor(model => model.LastName)
+                @Html.HiddenFor(model => model.CurrentLastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.DateOfBirthViewModel, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+            </div>
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.DateOfBirthViewModel)
+                @Html.HiddenFor(m => m.CurrentDateOfBirth)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">
+                @Html.LabelFor(model => model.GenderId, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+            </div>
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.GenderId, Model.Genders, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.GenderId)
+                @Html.HiddenFor(model => model.CurrentGenderId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-default btn-submit">Save</button>
+                @Html.ActionLink("Cancel", MVC.Person.Index(), new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+

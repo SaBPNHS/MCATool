@@ -1,0 +1,96 @@
+﻿@using Sfw.Sabp.Mca.Infrastructure.Web.HtmlExtensions
+@model Sfw.Sabp.Mca.Web.ViewModels.AssessmentViewModel
+
+@Html.AntiForgeryToken()
+@Html.HiddenFor(m => m.StageDescriptionStyle)
+@Html.HiddenFor(m => m.StageDescription)
+@Html.HiddenFor(m => m.Stage1InfoText)
+@Html.HiddenFor(m => m.Stage1DecisionConfirmation)
+@Html.HiddenFor(m => m.Patient.PatientId)
+@Html.HiddenFor(m => m.AssessmentId)
+@Html.HiddenCollectionOf(Model, m => m.Roles)
+
+<div class="form-group">
+    <div class="alert alert-@Model.StageDescriptionStyle" role="alert">
+        <h3>@Model.StageDescription</h3>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-12">
+        <h4>
+            @Html.DisplayFor(m => m.PatientSummary, new { @class = "control-label" })
+        </h4>
+        @Html.HiddenFor(m => m.PatientSummary)
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-4">
+        @Html.LabelFor(model => model.RoleId, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+    </div>
+    <div class="col-md-8">
+        @Html.DropDownListFor(model => model.RoleId, Model.Roles, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.RoleId)
+    </div>
+</div>
+
+<div id="decisionmakertext" class="form-group">
+    <div class="col-md-4">
+        @Html.LabelFor(model => model.DecisionMaker, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.DecisionMaker, new { @class = "form-control", @maxlength = "50" })
+        @Html.ValidationMessageFor(model => model.DecisionMaker)
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-4">
+        @Html.LabelFor(model => model.DateAssessmentStarted, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.DateAssessmentStarted, "{0:dd/MM/yyyy}", new { @class = "form-control past-date" })
+        @Html.ValidationMessageFor(model => model.DateAssessmentStarted)
+    </div>
+</div>
+
+<div class="alert alert-info" role="alert">
+    <p>
+        <span>@Html.Partial(MVC.Shared.Views._InformationLogo)</span>
+        <span>@Html.DisplayFor(model => @model.Stage1InfoText, new { @class = "form-control" })</span>
+    </p>
+</div>
+
+<div class="form-group">
+    <div class="col-md-4">
+        @Html.LabelFor(model => model.Stage1DecisionToBeMade, new { @class = "control-label" })@Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+    </div>
+    <div class="col-md-8">
+        @Html.TextBoxFor(model => model.Stage1DecisionToBeMade, new { @class = "form-control", @maxlength = "1000" })
+        @Html.ValidationMessageFor(model => model.Stage1DecisionToBeMade)
+    </div>
+</div>
+
+<div class="alert alert-info" role="alert">
+    <p>
+        <span>@Html.Partial(MVC.Shared.Views._InformationLogo)</span>
+        <span>@Html.DisplayFor(model => model.Stage1DecisionConfirmation, new { @class = "form-control" })</span>
+    </p>
+</div>
+
+<div class="form-group">
+    <div class="col-md-4">
+        <div class="stage1decisionclearlymade-label-fix">
+            @Html.LabelFor(model => model.Stage1DecisionClearlyMade, new { @class = "control-label" })
+        </div>
+        <div class="stage1decisionclearlymade-partial-fix">
+            @Html.Partial(MVC.Shared.Views._RequiredFieldPartial)
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="checkbox">
+            @Html.EditorFor(model => model.Stage1DecisionClearlyMade)
+            @Html.ValidationMessageFor(model => model.Stage1DecisionClearlyMade)
+        </div>
+    </div>
+</div>
