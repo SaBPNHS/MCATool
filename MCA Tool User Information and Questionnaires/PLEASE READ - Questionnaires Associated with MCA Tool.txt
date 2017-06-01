@@ -1,0 +1,15 @@
+We are pleased to make the MCA web based assessment tool available for organisations to use.  
+The tool was developed from funding from the Nurse Technology Fund, and we are required to show its effectiveness. 
+We have developed questionnaires to use with staff before and after using the assessment tool to assess 
+changes in knowledge, confidence and satisfaction in undertaking Mental Capacity Act assessments.  
+We are making this tool available via Open Source on the proviso that organisations agree to use 
+these questionnaires and send back the completed questionnaires and demographic information. Completed sets of questionnaires 
+(Demographic and pre and post Knowledge, Confidence and Satisfaction questionnaires for each person) 
+should be sent to 
+Psychology Dept, 
+Surrey and Borders Partnership NHS Foundation Trust, 
+Ramsay House, 
+West Park, 
+Horton Lane, .
+Epsom 
+KT19 8BP
