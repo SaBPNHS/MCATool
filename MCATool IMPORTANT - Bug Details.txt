@@ -1,0 +1,11 @@
+The purpose of this document is to alert you to an issue that has been identified with the MCA tool.
+
+When creating a new assessment please ensure that you complete both Section 1 and Section 2 before exiting from the application. Should section 2 NOT be completed and the assessment resumed at a later time the data will not be saved. Once section 2 has been completed it is possible to exit the assessment and resume at a later time without loss of data.
+
+If exiting the application is unavoidable before completing Section 2 please create a new assessment  and email the application administrator with the following details relating to the incomplete assessment in order that it can be deleted:
+
+NHS Number
+Date of assessment
+Assessment title
+Assessor name
+
